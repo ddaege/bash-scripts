@@ -1,0 +1,51 @@
+#!/bin/bash
+
+####################  List of commands you can use to make passwords
+
+# ${RANDOM} chooses a random number
+
+rand=echo ${RANDOM}
+
+${rand}${rand}${rand}
+
+# Using the date command (seconds)
+
+password=$(date +%s)
+
+echo "${password}"
+
+# Using the date command (nanoseconds)
+
+password=$(date +%N)
+
+echo "${password}"
+
+# Use a checksum to read the standard input of the previous command and compute a message digest
+
+echo $(date +%s) | sha256sum
+
+# Can also combine them
+
+${rand}$(date +%s%N) | sha256sum
+
+# To make a shortened random password, after combining use the head command
+# This will combine the checksum of the date in seconds and nanoseconds then shorten it to 8 
+# characters
+
+echo $(date +%s%N) | sha256sum | head -c8
+
+# Add RANDOM to it
+
+perf_pass=$(date +%s%N${RANDOM}${RANDOM} | sha256sum | head -c48)
+
+echo "${perf_pass}"
+
+# Append a special character to the password
+# shuf will shuffle in random order
+# fold will wrap each input line, -w1 is have the width column be of 1
+
+char=$(echo '!@#$%^&*()_-+=' | fold -w1 | shuf | head -c1)
+
+# Now combine
+
+echo "${perf_pass}${char}"

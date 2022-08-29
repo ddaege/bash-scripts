@@ -1,0 +1,9 @@
+#
+# This is the cronjob for ./cronjob-tar.sh
+# I didn't want to make an actual cronjob
+#
+# 00 08 * * */1 /root/Bash_scripts/bash_projects/cronjob-tar.sh
+#
+#
+#
+
